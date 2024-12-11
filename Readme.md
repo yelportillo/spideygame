@@ -21,18 +21,24 @@ To run the game, ensure you have the following installed:
 
 ## Installation
 
-1. Set up a virtual environment (optional but recommended).
+1. 1. Clone this repository:
+   ```bash
+   git clone https://github.com/yelportillo/spideygame
+   cd spideygame
+   ```   ```
+
+2. Set up a virtual environment (optional but recommended).
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
    ```
 
-2. Install the required libraries using the `requirements.txt` file.
+3. Install the required libraries using the `requirements.txt` file.
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Ensure `tkinter` is installed. It usually comes pre-installed with Python.
+4. Ensure `tkinter` is installed. It usually comes pre-installed with Python.
 
 ## How to Play
 
@@ -41,18 +47,21 @@ To run the game, ensure you have the following installed:
    python3 spideygame.py
    ```
 
-2. Use mouse to interact with game elements.
+2. Follow the on-screen instructions to play the game.
+
+3. Enjoy the challenges and aim for the highest score!
 
 ## Game Controls
 
 - **Mouse**: Use the mouse to interact with game elements.
+- **Keyboard**: Some challenges may involve pressing keys or other keyboard-based interactions (details appear in-game).
 
 ## Development
 
 ### File Structure
 
 - `spideygame.py`: Main script containing the game logic.
-- `media/`: Folder containing images and sound files (if applicable).
+- `assets/`: Folder containing images and sound files (if applicable).
 - `requirements.txt`: File listing the required Python libraries.
 
 ### Key Technologies
