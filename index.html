@@ -54,11 +54,26 @@
     .card.matched {
       background-color: #98fb98;
     }
+
+    #start-button {
+      padding: 10px 20px;
+      background-color: #61dafb;
+      color: #282c34;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #start-button:hover {
+      background-color: #21a1f1;
+    }
   </style>
 </head>
 <body>
   <h1>Memory Game</h1>
-  <div id="game-board"></div>
+  <button id="start-button">Start Game</button>
+  <div id="game-board" style="display: none;"></div>
 
   <audio id="background-music" loop>
     <source src="./media/music.mp3" type="audio/mpeg">
@@ -66,10 +81,9 @@
   </audio>
 
   <script>
-    // Play background music
+    const startButton = document.getElementById("start-button");
+    const gameBoard = document.getElementById("game-board");
     const backgroundMusic = document.getElementById("background-music");
-    backgroundMusic.volume = 0.5; // Adjust volume
-    backgroundMusic.play();
 
     // Characters and their image filenames
     const characters = [
@@ -77,32 +91,39 @@
       "Iron Man.png", "Green Goblin.png", "Doc Ock.png", "Rhino.png", "Black Cat.png"
     ];
 
-    // Duplicate and shuffle the cards
-    let cards = [...characters, ...characters];
-    cards = cards.sort(() => Math.random() - 0.5);
-
-    const gameBoard = document.getElementById("game-board");
+    let cards = [...characters, ...characters].sort(() => Math.random() - 0.5);
     let flippedCards = [];
     let matchedCards = [];
 
-    // Create the game board
-    cards.forEach((card) => {
-      const cardElement = document.createElement("div");
-      cardElement.classList.add("card");
-      cardElement.dataset.name = card;
+    // Start the game on button click
+    startButton.addEventListener("click", () => {
+      backgroundMusic.volume = 0.5; // Adjust volume
+      backgroundMusic.play(); // Start music
 
-      const img = document.createElement("img");
-      img.src = `./media/${card}`; // Path to media folder
-      img.alt = card;
-
-      cardElement.appendChild(img);
-      gameBoard.appendChild(cardElement);
-
-      cardElement.addEventListener("click", () => flipCard(cardElement));
+      startButton.style.display = "none"; // Hide start button
+      gameBoard.style.display = "grid"; // Show game board
+      createGameBoard();
     });
 
+    // Create the game board
+    function createGameBoard() {
+      cards.forEach((card) => {
+        const cardElement = document.createElement("div");
+        cardElement.classList.add("card");
+        cardElement.dataset.name = card;
+
+        const img = document.createElement("img");
+        img.src = `./media/${card}`;
+        img.alt = card;
+
+        cardElement.appendChild(img);
+        gameBoard.appendChild(cardElement);
+
+        cardElement.addEventListener("click", () => flipCard(cardElement));
+      });
+    }
+
     function flipCard(card) {
-      // Prevent flipping more than two cards or already matched cards
       if (
         flippedCards.length < 2 &&
         !card.classList.contains("flipped") &&
@@ -121,14 +142,12 @@
       const [firstCard, secondCard] = flippedCards;
 
       if (firstCard.dataset.name === secondCard.dataset.name) {
-        // Mark as matched
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
         matchedCards.push(firstCard, secondCard);
 
         flippedCards = [];
 
-        // Check if all cards are matched
         if (matchedCards.length === cards.length) {
           setTimeout(() => {
             alert("Congratulations! You've matched all the cards!");
@@ -136,7 +155,6 @@
           }, 500);
         }
       } else {
-        // Flip cards back after a short delay
         setTimeout(() => {
           firstCard.classList.remove("flipped");
           secondCard.classList.remove("flipped");
@@ -150,22 +168,7 @@
       flippedCards = [];
       cards = cards.sort(() => Math.random() - 0.5);
       gameBoard.innerHTML = "";
-
-      // Recreate the game board
-      cards.forEach((card) => {
-        const cardElement = document.createElement("div");
-        cardElement.classList.add("card");
-        cardElement.dataset.name = card;
-
-        const img = document.createElement("img");
-        img.src = `./media/${card}`;
-        img.alt = card;
-
-        cardElement.appendChild(img);
-        gameBoard.appendChild(cardElement);
-
-        cardElement.addEventListener("click", () => flipCard(cardElement));
-      });
+      createGameBoard();
     }
   </script>
 </body>
