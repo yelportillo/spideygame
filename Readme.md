@@ -47,14 +47,11 @@ To run the game, ensure you have the following installed:
    python3 spideygame.py
    ```
 
-2. Follow the on-screen instructions to play the game.
-
-3. Enjoy the challenges and aim for the highest score!
+2. Use mouse to interact with game elements.
 
 ## Game Controls
 
 - **Mouse**: Use the mouse to interact with game elements.
-- **Keyboard**: Some challenges may involve pressing keys or other keyboard-based interactions (details appear in-game).
 
 ## Development
 
