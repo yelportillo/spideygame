@@ -58,7 +58,7 @@ To run the game, ensure you have the following installed:
 ### File Structure
 
 - `spideygame.py`: Main script containing the game logic.
-- `assets/`: Folder containing images and sound files (if applicable).
+- `media/`: Folder containing images and sound files (if applicable).
 - `requirements.txt`: File listing the required Python libraries.
 
 ### Key Technologies
