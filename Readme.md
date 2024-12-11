@@ -21,23 +21,18 @@ To run the game, ensure you have the following installed:
 
 ## Installation
 
-1. Download the project files and navigate to the directory:
-   ```bash
-   cd "Spider-Man Memory Game"
-   ```
-
-2. Set up a virtual environment (optional but recommended).
+1. Set up a virtual environment (optional but recommended).
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
    ```
 
-3. Install the required libraries using the `requirements.txt` file.
+2. Install the required libraries using the `requirements.txt` file.
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Ensure `tkinter` is installed. It usually comes pre-installed with Python.
+3. Ensure `tkinter` is installed. It usually comes pre-installed with Python.
 
 ## How to Play
 
