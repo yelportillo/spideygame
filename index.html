@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory Game</title>
   <style>
-    /* General body styling */
     body {
       font-family: Arial, sans-serif;
       background-color: #282c34;
@@ -16,13 +15,11 @@
       overflow-x: hidden;
     }
 
-    /* Responsive heading */
     h1 {
       margin-bottom: 2vw;
       font-size: clamp(1.5rem, 5vw, 3rem);
     }
 
-    /* Responsive start button */
     #start-button {
       padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 3vw, 2rem);
       font-size: clamp(1rem, 2.5vw, 1.5rem);
@@ -38,17 +35,18 @@
       background-color: #21a1f1;
     }
 
-    /* Responsive game board */
+    /* Fixed 6x3 game board */
     #game-board {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(3, 1fr);
       gap: clamp(0.5rem, 1vw, 1rem);
       justify-content: center;
       max-width: 95vw;
+      aspect-ratio: 6 / 3; /* Keep board proportionate */
       margin: 0 auto;
     }
 
-    /* Responsive cards */
     .card {
       aspect-ratio: 1 / 1;
       background-color: gray;
@@ -85,7 +83,6 @@
     /* Mobile-specific adjustments */
     @media (max-width: 600px) {
       #game-board {
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
         gap: 0.5rem;
       }
       .card {
@@ -96,7 +93,6 @@
     /* Tablet-specific adjustments */
     @media (min-width: 601px) and (max-width: 1024px) {
       #game-board {
-        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
         gap: 0.8rem;
       }
       .card {
@@ -126,11 +122,11 @@
       "Iron Man.png", "Green Goblin.png", "Doc Ock.png", "Rhino.png", "Black Cat.png"
     ];
 
-    let cards = [...characters, ...characters].sort(() => Math.random() - 0.5);
+    // We need exactly 18 cards for 6x3, so repeat or trim if needed
+    let cards = [...characters, ...characters].slice(0, 18).sort(() => Math.random() - 0.5);
     let flippedCards = [];
     let matchedCards = [];
 
-    // Start the game on button click
     startButton.addEventListener("click", () => {
       backgroundMusic.volume = 0.5; 
       backgroundMusic.play();
@@ -140,8 +136,8 @@
       createGameBoard();
     });
 
-    // Create the game board
     function createGameBoard() {
+      gameBoard.innerHTML = ""; // Clear old cards
       cards.forEach((card) => {
         const cardElement = document.createElement("div");
         cardElement.classList.add("card");
@@ -159,17 +155,13 @@
     }
 
     function flipCard(card) {
-      if (
-        flippedCards.length < 2 &&
-        !card.classList.contains("flipped") &&
-        !card.classList.contains("matched")
-      ) {
+      if (flippedCards.length < 2 &&
+          !card.classList.contains("flipped") &&
+          !card.classList.contains("matched")) {
         card.classList.add("flipped");
         flippedCards.push(card);
 
-        if (flippedCards.length === 2) {
-          checkMatch();
-        }
+        if (flippedCards.length === 2) checkMatch();
       }
     }
 
@@ -180,7 +172,6 @@
         firstCard.classList.add("matched");
         secondCard.classList.add("matched");
         matchedCards.push(firstCard, secondCard);
-
         flippedCards = [];
 
         if (matchedCards.length === cards.length) {
@@ -202,7 +193,6 @@
       matchedCards = [];
       flippedCards = [];
       cards = cards.sort(() => Math.random() - 0.5);
-      gameBoard.innerHTML = "";
       createGameBoard();
     }
   </script>
